@@ -28,6 +28,7 @@
             justify-content: flex-start; /* Center the elements vertically */
             align-items: center;
             padding-top: 50px; /* Space for the avatar */
+            padding-bottom: 20px; /* Space at the bottom */
         }
         .circle {
             width: 120px;
@@ -49,7 +50,7 @@
             display: flex;
             align-items: center;
             margin-top: 30px; /* Space between avatar and text */
-            margin-bottom: 10px; /* Space between text and icons */
+            margin-bottom: 20px; /* Space between text and icons */
         }
         .text-animation p {
             margin: 0;
@@ -90,12 +91,13 @@
         .icons img:hover + .tooltip {
             opacity: 1;
         }
-        .alive-for {
+        .alive {
             font-family: "Courier New", Courier, monospace;
             font-size: 0.8em;
             color: white;
             font-weight: bold;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            margin-top: auto; /* Move to the bottom */
         }
     </style>
 </head>
@@ -116,7 +118,7 @@
             <img src="https://kidd0x.github.io/images/icon3.png" alt="Icon 3">
             <div class="tooltip">King</div>
         </div>
-        <div class="alive-for" id="aliveFor"></div>
+        <div class="alive" id="aliveText">Alive for 20 years, 1 month, 7 days, 5 hours, 23 minutes, and 42 seconds</div>
     </div>
 
     <script>
@@ -157,20 +159,21 @@
         };
         typeNow();
 
-        const since = new Date(2004, 2, 18, 4, 20, 0);
-        setInterval(() => {
+        function updateTimer() {
+            const since = new Date(2004, 2, 18, 4, 20, 0);
             const now = new Date();
-            const diff = Math.floor((now - since) / 1000);
+            const diff = now - since;
+            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+            const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.4375));
+            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.4375)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            const years = Math.floor(diff / 31536000);
-            const months = Math.floor((diff % 31536000) / 2592000);
-            const days = Math.floor(((diff % 31536000) % 2592000) / 86400);
-            const hours = Math.floor((((diff % 31536000) % 2592000) % 86400) / 3600);
-            const minutes = Math.floor(((((diff % 31536000) % 2592000) % 86400) % 3600) / 60);
-            const seconds = (((diff % 31536000) % 2592000) % 86400) % 3600 % 60;
+            document.getElementById('aliveText').textContent = `Alive for ${years} years, ${months} months, ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds`;
+        }
 
-            document.getElementById('aliveFor').textContent = `Alive for ${years} years ${months} months ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
-        }, 1000);
+        setInterval(updateTimer, 1000);
     </script>
 </body>
 </html>
