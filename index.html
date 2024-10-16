@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .neon-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: #fff;
+            text-decoration: none;
+            background-color: #000;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #fff, 0 0 20px #fff;
+            transition: 0.2s;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .neon-button:hover {
+            box-shadow: 0 0 15px #fff, 0 0 25px #fff;
+        }
+
+        .typing-effect {
+            font-size: 24px;
+            color: #fff;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .love-text {
+            font-size: 48px;
+            display: none;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        @media (max-width: 768px) {
+            .typing-effect {
+                font-size: 20px;
+            }
+
+            .love-text {
+                font-size: 36px;
+            }
+
+            .neon-button {
+                font-size: 16px;
+                padding: 12px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .typing-effect {
+                font-size: 16px;
+            }
+
+            .love-text {
+                font-size: 30px;
+            }
+
+            .neon-button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <a class="neon-button" onclick="startTypingEffect()">❤️</a>
+    <div class="typing-effect" id="typingText" style="display: none;"></div>
+    <div class="love-text" id="loveMessage">LOVE YOU PRINCESS 👑</div>
+
+    <script>
+        const customMessage = "In sfarsit am terminat si eu acest 'proiect', cel mai greu a fost de scris mesajul 🤗. In fine, cum as putea sa incep doar prin a-ti spune ce fata frumoasa si minunata esti ❤️. Sa stii ca tin la tine, foarte mult, si sunt dispus sa fac toate sacrificiile necesare sa te stiu fericita, pentru ca daca esti tu fericita sunt si eu 😇. Daca o sa ai vreodata ceva de vorbit, eu sunt aici, la orice ora din zi si din noapte, doar da-mi un mesaj sau suna-ma 👉👈. Stiu cum e sa ai pe cineva la care ti si dupa sa iti rupa sufletul in doua... dar eu consider ca o chestie de genul este o experienta de viata din care ar trebui sa inveti ceva. Trecutul este trecut, orice s-a intamplat nu se mai poate da inapoi. Bucura-te de prezent pentru a avea un viitor frumos ♾️. Viata este un lucru unic, fie el un cacat 💩 sau o floare roz 🌺, tu trebuie sa inveti sa te descurci. Inteleg ca e foarte greu sa mergi acasa si sa nu te mai simti 'acasa'.. Pentru mine termenul de acasa are valoare doar de adapost. 'acasa' te simti cu persoana pe care o iubesti si in care iti pui toata baza si increderea.. si da, e dureros in draci ca acea persoana sa isi bata joc de tine. Increderea este ca o cana ciobita.. degeaba o lipesti la loc ca nu va mai fi la fel niciodata. Eu ma simt foarte bine cand sunt cu tine, am un vibe bun chiar daca am avut o zi de cacat.. Stii norisorul ala din desene care sta deasupra si ploua cand e cineva suparat 🌧️, eh, tu esti soarele care goneste norisorul ala de deasupra mea ☀️. Te iubesc mult, chiar daca momentan sentimenul nu este egal din ambele parti, nu o sa renunt asa usor la tine ⌛.  ";
+
+        function startTypingEffect() {
+            document.querySelector('.neon-button').style.display = 'none';
+            const typingTextElement = document.getElementById('typingText');
+            typingTextElement.style.display = 'block';
+
+            let i = 0;
+            const typingSpeed = 100;
+
+            function typeWriter() {
+                if (i < customMessage.length) {
+                    typingTextElement.innerHTML += customMessage.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, typingSpeed);
+                } else {
+                    setTimeout(function() {
+                        typingTextElement.style.display = 'none';
+                        document.getElementById('loveMessage').style.display = 'block';
+                    }, 50000);
+                }
+            }
+            typeWriter();
+        }
+    </script>
+
+</body>
+</html>
