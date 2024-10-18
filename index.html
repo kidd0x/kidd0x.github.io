@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Things to Say</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet"> <!-- Importing Montserrat font -->
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            width: 100vw; /* Ensure the body takes the full width */
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Montserrat', sans-serif; /* Applying cool font */
+            position: relative;
+            cursor: pointer; /* Change cursor to pointer for better user experience */
+        }
+
+        .circle-container {
+            position: absolute; /* Position the container absolutely */
+            width: 100%; /* Cover the full width */
+            height: 100%; /* Cover the full height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle-container img {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .sentence {
+            font-size: 24px;
+            text-align: center;
+            position: absolute;
+            top: 20px; /* Move the text closer to the top */
+            left: 50%;
+            transform: translate(-50%, 0); /* Center horizontally */
+            width: calc(100% - 40px); /* Adjust width to prevent margin issues */
+            max-width: 600px; /* Limit maximum width */
+            z-index: 1;
+            padding: 0 20px; /* Add padding to create space around text */
+            box-sizing: border-box; /* Include padding in width calculation */
+            overflow: hidden; /* Prevent overflow */
+            transition: top 0.3s ease; /* Smooth transition for repositioning */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="sentence" id="sentence-display">Apasa INCET oriunde ❤️</div>
+
+    <div class="circle-container" id="circle-container"></div>
+
+    <script>
+        // Array of sentences
+        const sentences = [
+            "Imi pare rau ca am fost nesimtit aseara",
+            "Am vrut sa iau 99 de trandafiri, dar nu pot momentan :(, asa ca am facut asta",
+            "Numarul de trandafiri daruiti semnifica cate ceva :D",
+            "Un singur trandafir - Un singur trandafir se dăruiește unei fete de cele mai multe ori la prima întâlnire și simbolizează dragostea la prima vedere. Se numără de asemenea printre cadourile preferate pentru ",
+            "3 trandafiri - Un buchet cu 3 trandafiri  transmite mesajul 'Te iubesc', ca atare poate fi dăruit oricând iubitei sau soției. Poate fi și un cadou perfect cu ocazia aniversării a trei luni de relație sau de căsătorie.",
+            "5 trandafiri - Semnificația a 5 trandafiri este cea de admirație și de atașament. Poți dărui un buchet cu 5 trandafiri atât persoanei dragi, cât și unui prieten, pentru a îi spune 'Te apreciez și țin foarte mult la tine'",
+            "7 trandafiri - Semnificația unui buchet cu 7 trandafiri  este cea de fascinație și de atracție puternică față de persoana căreia îi este dăruit. Mesajul transmis este 'Nu mă pot gândi decât la tine'",
+            "9 trandafiri - Simbolizează dragostea eternă. Semnificația lor este 'Vreau să îmi petrec toată viața alături de tine'. Un buchet cu 9 trandafiri dăruit iubitei este o modalitate perfectă de a o cere în căsătorie'",
+            "11 trandafiri - Ești tot ce am mai de preț pe lume",
+            "13 trandafiri - Transmit mesajul ''Prieteni pe viață', de aceea poți dărui un astfel de buchet cu ocazia aniversării unui prieten. Pe de altă parte însă, 13 trandafiri mai pot indica și faptul că buchetul este trimis de un admirator secret.",
+            "15 trandafiri - Imi pare rau ca am fost nesimtit :(",
+            "17 trandafiri - Un buchet de 17 trandafiri este un cadou potrivit pentru aniversarea soției",
+            "19 trandafiri - Semnificația unui buchet de 19 trandafiri este 'Te voi aștepta, dragostea mea'",
+            "21 de trandafiri - Sunt doar al tau",
+            "25 de trandafiri -  atunci când vrei să feliciți pe cineva pentru o reușită sau pentru un eveniment. Mesajul transmis este 'Îți doresc toată fericirea din lume'",
+            "27 de trandafiri - Ii arati cat de mult o iubesti",
+            "29 de trandafiri - Esti o persoana speciala (Chiar esti tho ❤️)",
+            "33 de trandafiri - Simbolul afectiunii",
+            "37 de trandafiri - Te iubesc din tot sufletul.. piticanie",
+            "43 de trandafiri - Voi fi intotdeauna alaturi de tine",
+            "49 de trandafiri - Te voi iubi mereu",
+            "77 de trandafiri - Esti sufletul meu pereche",
+            "99 de trandafiri - Te voi iubi pana la moarte",
+            "101 trandafiri - Voi face orice sa fie totul mai ok, te voi iubi cum nu a facut-o nimeni, doar da-mi o sansa 👉 👈"
+        ];
+
+        const container = document.getElementById("circle-container");
+        const sentenceDisplay = document.getElementById("sentence-display");
+        let currentIndex = 0; // Track the current sentence
+        let numberOfRoses = 0; // To keep track of the number of roses
+        const maxRosesInLayer = 24; // Increased number of roses in one layer
+        const radiusIncrement = 25; // Increased increment radius for each layer
+        const initialRadius = 30; // Starting radius for the first layer
+
+        // Function to spawn a new rose
+        function spawnRose() {
+            const layer = Math.floor(numberOfRoses / maxRosesInLayer); // Determine which layer we're on
+            const rosesInLayer = numberOfRoses % maxRosesInLayer; // Number of roses in the current layer
+
+            // Calculate position based on the layer and angle
+            const radius = initialRadius + layer * radiusIncrement; // Adjust the radius based on the layer
+            const angle = (rosesInLayer * (2 * Math.PI / maxRosesInLayer)); // Calculate angle evenly
+
+            const x = (radius * Math.cos(angle)) + (container.clientWidth / 2 - 25); // Center position
+            const y = (radius * Math.sin(angle)) + (container.clientHeight / 2 - 25); // Center position
+
+            const rose = document.createElement("img");
+            rose.src = "images/rose.png"; // Use the same rose image
+            rose.alt = "Rose";
+            rose.style.left = `${x}px`;
+            rose.style.top = `${y}px`;
+
+            container.appendChild(rose);
+            numberOfRoses++; // Increment the number of roses
+        }
+
+        // Function to update sentence
+        function updateContent() {
+            // Update sentence
+            sentenceDisplay.textContent = sentences[currentIndex];
+
+            // Increment the index, looping back to the start if necessary
+            currentIndex = (currentIndex + 1) % sentences.length;
+
+            // Spawn a new rose for each click
+            spawnRose();
+        }
+
+        // Event listener for clicking anywhere in the circle container
+        container.addEventListener("click", updateContent);
+    </script>
+
+</body>
+</html>
