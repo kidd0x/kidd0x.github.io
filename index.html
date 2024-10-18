@@ -18,6 +18,7 @@
             font-family: 'Montserrat', sans-serif; /* Applying cool font */
             position: relative;
             cursor: pointer; /* Change cursor to pointer for better user experience */
+            user-select: none; /* Prevent text selection on click */
         }
 
         .circle-container {
@@ -49,9 +50,9 @@
             padding: 0 20px; /* Add padding to create space around text */
             box-sizing: border-box; /* Include padding in width calculation */
             overflow: hidden; /* Prevent overflow */
-            transition: top 0.3s ease; /* Smooth transition for repositioning */
+            transition: opacity 0.3s ease; /* Smooth transition for visibility changes */
+            opacity: 1; /* Ensure text is initially visible */
         }
-
     </style>
 </head>
 <body>
@@ -121,14 +122,16 @@
 
         // Function to update sentence
         function updateContent() {
-            // Update sentence
-            sentenceDisplay.textContent = sentences[currentIndex];
-
-            // Increment the index, looping back to the start if necessary
-            currentIndex = (currentIndex + 1) % sentences.length;
-
-            // Spawn a new rose for each click
-            spawnRose();
+            // Fade out effect
+            sentenceDisplay.style.opacity = '0';
+            setTimeout(() => {
+                // Update sentence after fading out
+                sentenceDisplay.textContent = sentences[currentIndex];
+                currentIndex = (currentIndex + 1) % sentences.length; // Increment the index
+                // Fade in effect
+                sentenceDisplay.style.opacity = '1';
+                spawnRose(); // Spawn a new rose
+            }, 300); // Match the duration of the fade out
         }
 
         // Event listener for clicking anywhere in the circle container
