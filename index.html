@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ce face alcoolul din om</title>
+    <style>
+        body {
+            font-size: 18px;
+            font-family: "Helvetica Neue", sans-serif;
+            background-color: #000000; /* Set background color to black */
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 4.2rem;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 400;
+            color: white; /* Title color */
+        }
+
+        .container {
+            text-align: center;
+            color: white; /* Text color */
+        }
+
+        .message {
+            margin: 20px 0; /* Margin between messages */
+        }
+
+        .flag {
+            width: 50px; /* Set flag width */
+            margin-top: 5px; /* Margin above flag */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loveMessages"></div>
+    </div>
+    <script>
+    const messages = [
+        { phrase: "I love you", country: "USA", flag: "https://flagcdn.com/us.svg" },
+        { phrase: "Te amo", country: "Spain, Latin America", flag: "https://flagcdn.com/mx.svg" },
+        { phrase: "Je t'aime", country: "France, Belgium, Canada, Switzerland", flag: "https://flagcdn.com/fr.svg" },
+        { phrase: "Ich liebe dich", country: "Germany, Austria, Switzerland", flag: "https://flagcdn.com/de.svg" },
+        { phrase: "Amo-te", country: "Portugal, Brazil", flag: "https://flagcdn.com/pt.svg" },
+        { phrase: "Ti amo", country: "Italy, Switzerland", flag: "https://flagcdn.com/it.svg" },
+        { phrase: "Eu te amo", country: "Brazil, Portugal", flag: "https://flagcdn.com/br.svg" },
+        { phrase: "Saranghae", country: "South Korea, North Korea", flag: "https://flagcdn.com/kr.svg" },
+        { phrase: "Te quiero", country: "Spain, Latin America", flag: "https://flagcdn.com/mx.svg" },
+        { phrase: "Ik hou van jou", country: "Netherlands, Belgium", flag: "https://flagcdn.com/nl.svg" },
+        { phrase: "Main tumse pyaar karti hoon", country: "India", flag: "https://flagcdn.com/in.svg" },
+        { phrase: "Ana behibak", country: "Many Arab countries", flag: "https://flagcdn.com/sa.svg" },
+        { phrase: "Té amo", country: "Latin America", flag: "https://flagcdn.com/mx.svg" },
+        { phrase: "Sana seni seviyorum", country: "Turkey", flag: "https://flagcdn.com/tr.svg" },
+        { phrase: "Jag älskar dig", country: "Sweden", flag: "https://flagcdn.com/se.svg" },
+        { phrase: "Aš tave myliu", country: "Lithuania", flag: "https://flagcdn.com/lt.svg" },
+        { phrase: "Te iubesc", country: "Romania", flag: "https://flagcdn.com/ro.svg" },
+        { phrase: "Je vous aime", country: "France, Belgium, Canada, Switzerland", flag: "https://flagcdn.com/fr.svg" },
+        { phrase: "Oni gaga", country: "Democratic Republic of the Congo", flag: "https://flagcdn.com/cd.svg" },
+        { phrase: "Să te iubesc", country: "Romania", flag: "https://flagcdn.com/ro.svg" },
+        { phrase: "Naku penda", country: "Kenya, Tanzania, Uganda", flag: "https://flagcdn.com/ke.svg" },
+        { phrase: "Kocham cię", country: "Poland", flag: "https://flagcdn.com/pl.svg" },
+        { phrase: "Laku te jubit", country: "Albania", flag: "https://flagcdn.com/al.svg" },
+        { phrase: "Kimi o ai shiteru", country: "Japan", flag: "https://flagcdn.com/jp.svg" },
+        { phrase: "T'amo", country: "Spain", flag: "https://flagcdn.com/es.svg" },
+        { phrase: "Mahal kita", country: "Philippines", flag: "https://flagcdn.com/ph.svg" },
+        { phrase: "Saya suka", country: "Malaysia, Indonesia", flag: "https://flagcdn.com/my.svg" },
+        { phrase: "Eu te adoro", country: "Brazil, Portugal", flag: "https://flagcdn.com/br.svg" },
+        { phrase: "Duis", country: "Italy", flag: "https://flagcdn.com/it.svg" },
+        { phrase: "Aamore", country: "Italy", flag: "https://flagcdn.com/it.svg" },
+        { phrase: "J'ai besoin de toi", country: "France, Belgium, Canada, Switzerland", flag: "https://flagcdn.com/fr.svg" },
+        { phrase: "Cinta kamu", country: "Indonesia", flag: "https://flagcdn.com/id.svg" },
+        { phrase: "Mi amor", country: "Spain, Latin America", flag: "https://flagcdn.com/mx.svg" },
+        { phrase: "Lubię cię", country: "Poland", flag: "https://flagcdn.com/pl.svg" },
+        { phrase: "Nema te amo", country: "Latin America", flag: "https://flagcdn.com/mx.svg" },
+        { phrase: "Ani ohevet otcha", country: "Israel", flag: "https://flagcdn.com/il.svg" },
+        { phrase: "Es te mīlu", country: "Latvia", flag: "https://flagcdn.com/lv.svg" },
+        { phrase: "Je t'adore", country: "France, Belgium, Canada, Switzerland", flag: "https://flagcdn.com/fr.svg" },
+        { phrase: "Moja ljubavi", country: "Serbia", flag: "https://flagcdn.com/rs.svg" },
+        { phrase: "Yêu em", country: "Vietnam", flag: "https://flagcdn.com/vn.svg" },
+        { phrase: "Na ke", country: "Hawaiian", flag: "https://flagcdn.com/hw.svg" },
+        { phrase: "Tú eres mi vida", country: "Latin America", flag: "https://flagcdn.com/mx.svg" },
+        { phrase: "Jag älskar dig", country: "Sweden", flag: "https://flagcdn.com/se.svg" },
+        { phrase: "Taim i' ngaoim", country: "Ireland", flag: "https://flagcdn.com/ie.svg" },
+        { phrase: "Szeretlek", country: "Hungary", flag: "https://flagcdn.com/hu.svg" },
+        { phrase: "Kimi o aishiteru", country: "Japan", flag: "https://flagcdn.com/jp.svg" },
+        { phrase: "Ani ohevet otcha", country: "Israel", flag: "https://flagcdn.com/il.svg" },
+        { phrase: "Es te quiero", country: "Latin America", flag: "https://flagcdn.com/mx.svg" },
+        { phrase: "Ai you", country: "China", flag: "https://flagcdn.com/cn.svg" },
+        { phrase: "Jag älskar dig", country: "Sweden", flag: "https://flagcdn.com/se.svg" },
+        { phrase: "Kiira", country: "Uganda", flag: "https://flagcdn.com/ug.svg" },
+        { phrase: "Obo ja", country: "Bulgaria", flag: "https://flagcdn.com/bg.svg" },
+        { phrase: "Main tumse pyaar karta hoon", country: "India", flag: "https://flagcdn.com/in.svg" },
+        { phrase: "Mahalin kita", country: "Philippines", flag: "https://flagcdn.com/ph.svg" },
+        { phrase: "Ine", country: "Ghana", flag: "https://flagcdn.com/gh.svg" },
+        { phrase: "Tôi yêu bạn", country: "Vietnam", flag: "https://flagcdn.com/vn.svg" },
+        { phrase: "Akhong na", country: "Thailand", flag: "https://flagcdn.com/th.svg" },
+        { phrase: "Pino ni", country: "Philippines", flag: "https://flagcdn.com/ph.svg" },
+        { phrase: "Ana yudhisthira", country: "India", flag: "https://flagcdn.com/in.svg" },
+        { phrase: "Te quiero mucho", country: "Latin America", flag: "https://flagcdn.com/mx.svg" },
+        // Additional translations
+        { phrase: "Mi querido", country: "Argentina", flag: "https://flagcdn.com/ar.svg" },
+        { phrase: "Kocham cię mocno", country: "Poland", flag: "https://flagcdn.com/pl.svg" },
+        { phrase: "Mahal kita sa buhay ko", country: "Philippines", flag: "https://flagcdn.com/ph.svg" },
+        { phrase: "Amo você muito", country: "Brazil", flag: "https://flagcdn.com/br.svg" },
+        { phrase: "Aishiteru", country: "Japan", flag: "https://flagcdn.com/jp.svg" },
+        { phrase: "Te quiero tanto", country: "Spain", flag: "https://flagcdn.com/es.svg" },
+        { phrase: "I love you very much", country: "USA", flag: "https://flagcdn.com/us.svg" },
+        { phrase: "Mahal na mahal kita", country: "Philippines", flag: "https://flagcdn.com/ph.svg" },
+        { phrase: "Tô yêu bạn", country: "Vietnam", flag: "https://flagcdn.com/vn.svg" },
+        { phrase: "Te quiero un chingo", country: "Mexico", flag: "https://flagcdn.com/mx.svg" },
+        { phrase: "Mahal kita", country: "Philippines", flag: "https://flagcdn.com/ph.svg" },
+        { phrase: "Mina armastan sind", country: "Estonia", flag: "https://flagcdn.com/ee.svg" },
+        { phrase: "Ti amo tanto", country: "Italy", flag: "https://flagcdn.com/it.svg" },
+        { phrase: "Ik hou ontzettend veel van je", country: "Netherlands", flag: "https://flagcdn.com/nl.svg" },
+        { phrase: "Jak cię kocham", country: "Poland", flag: "https://flagcdn.com/pl.svg" },
+        { phrase: "Ik ben verliefd op jou", country: "Netherlands", flag: "https://flagcdn.com/nl.svg" },
+        { phrase: "Kamu adalah yang terindah", country: "Indonesia", flag: "https://flagcdn.com/id.svg" },
+        { phrase: "Taim i' ngaoim", country: "Ireland", flag: "https://flagcdn.com/ie.svg" },
+        { phrase: "Ngiyabonga", country: "South Africa", flag: "https://flagcdn.com/za.svg" },
+        { phrase: "Seni seviyorum", country: "Turkey", flag: "https://flagcdn.com/tr.svg" },
+        { phrase: "Saluton, mi amas vin", country: "Esperanto", flag: "https://flagcdn.com/eo.svg" },
+        { phrase: "Naku penda sana", country: "Kenya", flag: "https://flagcdn.com/ke.svg" },
+        { phrase: "Ik hou van je zo", country: "Netherlands", flag: "https://flagcdn.com/nl.svg" },
+        { phrase: "Dwi'n dy garu di", country: "Wales", flag: "https://flagcdn.com/gb-wls.svg" },
+        { phrase: "Jag älskar dig så mycket", country: "Sweden", flag: "https://flagcdn.com/se.svg" },
+        { phrase: "Obo ja", country: "Bulgaria", flag: "https://flagcdn.com/bg.svg" },
+        { phrase: "Saudade", country: "Brazil", flag: "https://flagcdn.com/br.svg" },
+        { phrase: "Mahal kita ng buong puso", country: "Philippines", flag: "https://flagcdn.com/ph.svg" },
+        { phrase: "Taim i' ngaoim", country: "Ireland", flag: "https://flagcdn.com/ie.svg" }
+    ];
+
+    const loveMessagesDiv = document.getElementById('loveMessages');
+    let currentIndex = 0;
+
+    function updateMessage() {
+        const message = messages[currentIndex];
+        loveMessagesDiv.innerHTML = `
+            <div class="message">
+                <h2>${message.phrase}</h2>
+                <img src="${message.flag}" alt="${message.country}" class="flag">
+                <p>${message.country}</p>
+            </div>
+        `;
+        currentIndex = (currentIndex + 1) % messages.length;
+    }
+
+    setInterval(updateMessage, 3000);
+    updateMessage(); // Initial call
+</script>
+
+</body>
+</html>
